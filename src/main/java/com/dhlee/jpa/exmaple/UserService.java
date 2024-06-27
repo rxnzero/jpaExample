@@ -14,7 +14,11 @@ public class UserService {
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-
+    
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+    
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
@@ -27,7 +31,10 @@ public class UserService {
         Optional<User> userOpt = userRepository.findById(id);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            user.setName(userDetails.getName());
+            user.setUsername(userDetails.getUsername());
+            user.setPassword(userDetails.getPassword());
+            user.setRole(userDetails.getRole());
+            user.setEmail(userDetails.getEmail());
             return userRepository.save(user);
         }
         return null;

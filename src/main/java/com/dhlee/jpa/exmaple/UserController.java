@@ -28,6 +28,10 @@ public class UserController {
         return userService.getUserById(id);
     }
 
+    @GetMapping("/find/{username}")
+    public Optional<User> getUserById(@PathVariable("username") String username) {
+        return userService.getUserByUsername(username);
+    }
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userService.createUser(user);

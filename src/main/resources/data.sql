@@ -1,2 +1,2 @@
-INSERT INTO users (name, email) VALUES ('dhlee', 'dhlee@email.com');
-INSERT INTO users (name, email) VALUES ('rxnzero', 'rxnzero@email.com');
+INSERT INTO users (username, password, role, email) VALUES ('dhlee', 'abcd1234', 'ADMIN', 'dhlee@email.com');
+INSERT INTO users (username, password, role, email) VALUES ('rxnzero', 'abcd1234', 'USER', 'rxnzero@email.com');
