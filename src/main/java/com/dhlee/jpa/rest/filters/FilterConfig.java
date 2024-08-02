@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 public class FilterConfig {
 
     @Bean
-    public FilterRegistrationBean<GzipFilter> loggingFilter(){
+    public FilterRegistrationBean<GzipFilter> gzipFilter(){
         FilterRegistrationBean<GzipFilter> registrationBean = new FilterRegistrationBean<>();
         
         registrationBean.setFilter(new GzipFilter());
@@ -17,4 +17,15 @@ public class FilterConfig {
         
         return registrationBean;
     }
+    
+//    @Bean
+//    public FilterRegistrationBean<LoggingFilter> loggingFilter(){
+//        FilterRegistrationBean<LoggingFilter> registrationBean = new FilterRegistrationBean<>();
+//        
+//        registrationBean.setFilter(new LoggingFilter());
+//        registrationBean.addUrlPatterns("/api/*");
+//        registrationBean.setOrder(2); // 필터 순서 설정
+//        
+//        return registrationBean;
+//    }
 }
