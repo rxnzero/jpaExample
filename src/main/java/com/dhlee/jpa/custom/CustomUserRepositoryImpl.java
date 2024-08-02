@@ -1,5 +1,6 @@
 package com.dhlee.jpa.custom;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,9 +12,13 @@ import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.apache.hc.core5.util.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
+
+import com.dhlee.jpa.rest.interceptors.GzipRequestInterceptor;
+import com.dhlee.jpa.rest.interceptors.LoggingInterceptor;
 
 import jakarta.annotation.PostConstruct;
 
@@ -51,7 +56,14 @@ public class CustomUserRepositoryImpl implements UserRepositoryCustom {
                 .build();
 
         HttpComponentsClientHttpRequestFactory factory = new HttpComponentsClientHttpRequestFactory(httpClient);
-        return new RestTemplate(factory);
+        RestTemplate restTemplate = new RestTemplate(factory);
+        
+		List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+		interceptors.add(new GzipRequestInterceptor());
+		interceptors.add(new LoggingInterceptor());
+		restTemplate.setInterceptors(interceptors);
+		
+        return restTemplate;
     }
 
     @PostConstruct
